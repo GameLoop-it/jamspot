@@ -1,5 +1,7 @@
 #include "spot/jam/game.h"
 
+#include "spot/jam/tile.h"
+
 
 namespace spot::jam
 {
@@ -16,7 +18,7 @@ Game::Game()
 void Game::run()
 {
 	Handle<gfx::Node> node = model->nodes.push();
-	node->mesh = model->meshes.push( gfx::Mesh::create_quad( material ) );
+	node->mesh = model->meshes.push( Tile::create_quad( *material, 1, 1 ) );
 
 	while ( gfx.window.is_alive() )
 	{

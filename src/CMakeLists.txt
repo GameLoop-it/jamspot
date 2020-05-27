@@ -1,6 +1,7 @@
 # Library
 set( LIB_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/game.cc
+	${CMAKE_CURRENT_SOURCE_DIR}/tile.cc
 )
 
 add_library( ${CMAKE_PROJECT_NAME} ${LIB_SOURCES} )
