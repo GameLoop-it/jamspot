@@ -13,8 +13,11 @@ class Game
 	void run();
 
   private:
+	/// Frame extent
+	VkExtent2D extent;
+
 	/// With this we make fireworks
-	gfx::Graphics gfx = { VkExtent2D { 320, 240 } };
+	gfx::Graphics gfx;
 
 	/// Model used to store everything related to a scene
 	Handle<gfx::Model> model;

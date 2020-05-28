@@ -16,8 +16,13 @@ gfx::Mesh Tile::create_quad( const gfx::Material& material, uint32_t x, uint32_t
 		return {};
 	}
 
+	const float hsize = tile_size / 2.0f;
+
 	// Create a default quad, then adjust texture coordinates
-	auto quad = gfx::Mesh::create_quad( material );
+	auto quad = gfx::Mesh::create_quad(
+		material,
+		math::Vec3( -hsize, -hsize ),
+		math::Vec3( hsize, hsize ) );
 
 	uint32_t image_width = material.texture->source->width;
 	uint32_t image_height = material.texture->source->height;
