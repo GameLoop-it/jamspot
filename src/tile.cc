@@ -3,12 +3,13 @@
 #include <spot/gfx/material.h>
 #include <spot/gfx/texture.h>
 #include <spot/gfx/image.h>
+#include <spot/gfx/model.h>
 
 namespace spot::jam
 {
 
 
-gfx::Mesh Tile::create_quad( const gfx::Material& material, uint32_t x, uint32_t y )
+Handle<gfx::Mesh> Tile::create_quad( const gfx::Material& material, gfx::Model& model ) const
 {
 	// Empty tile at (0,0)
 	if ( x == 0 && y == 0 )
@@ -54,7 +55,7 @@ gfx::Mesh Tile::create_quad( const gfx::Material& material, uint32_t x, uint32_t
 	d.t.x = x_coord;
 	d.t.y = y_coord;
 
-	return quad;
+	return model.meshes.push( std::move( quad ) );
 }
 
 

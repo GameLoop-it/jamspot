@@ -27,9 +27,7 @@ Game::Game()
 : extent { 320, 240 }
 , gfx { extent }
 , model { gfx.models.push() }
-, assets { model->images.push( gfx::Image( "res/img/assets.png" ) ) }
-, texture { model->textures.push( gfx::Texture( assets ) ) }
-, material { model->materials.push( gfx::Material( texture ) ) }
+, tileset { "res/img/assets.png", *model }
 {
 	gfx.camera.set_orthographic( create_viewport( extent ) );
 }
@@ -37,8 +35,7 @@ Game::Game()
 
 void Game::run()
 {
-	Handle<gfx::Node> node = model->nodes.push();
-	node->mesh = model->meshes.push( Tile::create_quad( *material, 28, 1 ) );
+	Handle<gfx::Node> node = tileset.create_node( Tile( 28, 1 ), *model );
 	node->translate( extent.width / 2.0f, extent.height / 2.0f );
 
 	while ( gfx.window.is_alive() )

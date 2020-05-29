@@ -2,6 +2,8 @@
 
 #include <spot/gfx/graphics.h>
 
+#include "spot/jam/tileset.h"
+
 namespace spot::jam
 {
 
@@ -21,17 +23,8 @@ class Game
 
 	/// Model used to store everything related to a scene
 	Handle<gfx::Model> model;
-
-	/// Image used for the jam
-	Handle<gfx::Image> assets;
-
-	/// This is a texture made with the image
-	/// It also has a sampler
-	Handle<gfx::Texture> texture;
-
-	/// Material containing the diffuse texture
-	/// It will be the unique for every node
-	Handle<gfx::Material> material;
+	
+	Tileset tileset;
 };
 
 } // namespace spot::jam
