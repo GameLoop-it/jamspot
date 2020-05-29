@@ -3,6 +3,7 @@
 #include <spot/gfx/graphics.h>
 
 #include "spot/jam/tileset.h"
+#include "spot/jam/player.h"
 
 namespace spot::jam
 {
@@ -25,6 +26,8 @@ class Game
 	Handle<gfx::Model> model;
 	
 	Tileset tileset;
+
+	Player player;
 };
 
 } // namespace spot::jam

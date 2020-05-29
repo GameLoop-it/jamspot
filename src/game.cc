@@ -29,25 +29,26 @@ Game::Game()
 , model { gfx.models.push() }
 , tileset { "res/img/assets.png", *model }
 {
+	player.node = tileset.create_node( Tile( 28, 1 ), *model );
+	player.node->translate( extent.width / 2.0f, extent.height / 2.0f );
 	gfx.camera.set_orthographic( create_viewport( extent ) );
 }
 
 
 void Game::run()
 {
-	Handle<gfx::Node> node = tileset.create_node( Tile( 28, 1 ), *model );
-	node->translate( extent.width / 2.0f, extent.height / 2.0f );
-
 	while ( gfx.window.is_alive() )
 	{
 		gfx.glfw.poll();
 		gfx.window.update();
+		auto delta = gfx.glfw.get_delta();
 
-		node->update_transforms();
+		player.update( delta, gfx.window.input );
+		player.node->update_transforms();
 
 		if ( gfx.render_begin() )
 		{
-			gfx.draw( *node );
+			gfx.draw( *player.node );
 
 			gfx.render_end();
 		}
