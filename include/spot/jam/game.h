@@ -3,7 +3,7 @@
 #include <spot/gfx/graphics.h>
 
 #include "spot/jam/tileset.h"
-#include "spot/jam/player.h"
+#include "spot/jam/entity.h"
 
 namespace spot::jam
 {
@@ -27,7 +27,7 @@ class Game
 	
 	Tileset tileset;
 
-	Player player;
+	Entity player;
 };
 
 } // namespace spot::jam

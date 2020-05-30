@@ -11,7 +11,7 @@ class Node;
 namespace spot::jam
 {
 
-class Player
+class Entity
 {
   public:
 	void update( const float delta, const gfx::Input& input );

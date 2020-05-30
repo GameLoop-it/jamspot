@@ -1,4 +1,4 @@
-#include "spot/jam/player.h"
+#include "spot/jam/entity.h"
 
 #include <spot/gfx/input.h>
 #include <spot/gfx/node.h>
@@ -7,7 +7,7 @@ namespace spot::jam
 {
 
 
-void Player::update( const float delta, const gfx::Input& input )
+void Entity::update( const float delta, const gfx::Input& input )
 {
 	math::Vec2 move;
 
