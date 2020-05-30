@@ -4,6 +4,8 @@
 #include <spot/gfx/node.h>
 #include "spot/jam/entity.h"
 
+#include "spot/jam/entity.h"
+
 namespace spot::jam
 {
 

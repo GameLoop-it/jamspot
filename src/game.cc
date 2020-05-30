@@ -29,9 +29,8 @@ Game::Game()
 , gfx { extent }
 , model { gfx.models.push() }
 , tileset { "res/img/assets.png", *model }
+, player { "res/data/player.json", tileset, *model }
 {
-	player.node = tileset.create_node( Tile( 28, 1 ), *model );
-	player.node->translate( extent.width / 2.0f, extent.height / 2.0f );
 	gfx.camera.set_orthographic( create_viewport( extent ) );
 }
 
@@ -54,7 +53,12 @@ void Game::run()
 			gfx.render_end();
 		}
 	}
+}
 
+
+Game::~Game()
+{
+	player.save( "res/data/player.json" );
 	gfx.device.wait_idle();
 }
 
