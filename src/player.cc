@@ -1,13 +1,17 @@
-#include "spot/jam/entity.h"
+#include "spot/jam/player.h"
 
 #include <spot/gfx/input.h>
 #include <spot/gfx/node.h>
+#include "spot/jam/entity.h"
 
 namespace spot::jam
 {
 
 
-void Entity::update( const float delta, const gfx::Input& input )
+float Player::speed = 32.0f;
+
+
+void Player::update( const float delta, const gfx::Input& input, Entity& player )
 {
 	math::Vec2 move;
 
@@ -20,7 +24,7 @@ void Entity::update( const float delta, const gfx::Input& input )
 	{
 		move.normalize();
 		move *= delta * speed;
-		node->translate( move );
+		player.node->translate( move );
 	}
 }
 

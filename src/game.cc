@@ -1,6 +1,7 @@
 #include "spot/jam/game.h"
 
 #include "spot/jam/tile.h"
+#include "spot/jam/player.h"
 
 
 namespace spot::jam
@@ -43,7 +44,7 @@ void Game::run()
 		gfx.window.update();
 		auto delta = gfx.glfw.get_delta();
 
-		player.update( delta, gfx.window.input );
+		Player::update( delta, gfx.window.input, player );
 		player.node->update_transforms();
 
 		if ( gfx.render_begin() )
