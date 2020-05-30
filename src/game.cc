@@ -31,6 +31,9 @@ Game::Game()
 , tileset { "res/img/assets.png", *model }
 , player { "res/data/player.json", tileset, *model }
 {
+	map.root = model->nodes.push();
+	map.root->add_child( player.node );
+
 	gfx.camera.set_orthographic( create_viewport( extent ) );
 }
 
@@ -44,11 +47,12 @@ void Game::run()
 		auto delta = gfx.glfw.get_delta();
 
 		Player::update( delta, gfx.window.input, player );
-		player.node->update_transforms();
+
+		map.root->update_transforms();
 
 		if ( gfx.render_begin() )
 		{
-			gfx.draw( *player.node );
+			gfx.draw( *map.root );
 
 			gfx.render_end();
 		}
