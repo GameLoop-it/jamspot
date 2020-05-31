@@ -4,6 +4,7 @@ set( LIB_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/tile.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/tileset.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/player.cc
+	${CMAKE_CURRENT_SOURCE_DIR}/map.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/serialization/entity.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/serialization/tile.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/serialization/node.cc

@@ -32,7 +32,6 @@ Game::Game()
 , player { "res/data/player.json", tileset, *model }
 {
 	map.root = model->nodes.push();
-	map.root->add_child( player.node );
 
 	gfx.camera.set_orthographic( create_viewport( extent ) );
 }
@@ -46,13 +45,16 @@ void Game::run()
 		gfx.window.update();
 		auto delta = gfx.glfw.get_delta();
 
-		Player::update( delta, gfx.window.input, player );
+		Player::Movement::update( delta, gfx.window.input, player );
+		Player::Action::update( gfx.window.input, *player.node, map, tileset, *model );
 
 		map.root->update_transforms();
+		player.node->update_transforms();
 
 		if ( gfx.render_begin() )
 		{
 			gfx.draw( *map.root );
+			gfx.draw( *player.node );
 
 			gfx.render_end();
 		}
