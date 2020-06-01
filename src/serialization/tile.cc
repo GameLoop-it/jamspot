@@ -11,6 +11,7 @@ void to_json( nlohmann::json& j, const Tile& t )
 	j["y"] = t.y;
 }
 
+
 void from_json( const nlohmann::json& j, Tile& t )
 {
 	t.x = j["x"].get<float>();

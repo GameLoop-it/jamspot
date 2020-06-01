@@ -2,16 +2,16 @@
 
 #include <nlohmann/json.hpp>
 
-#include "spot/jam/entity.h"
-
 
 namespace spot::jam
 {
 
 
-void to_json( nlohmann::json& j, const Entity& p );
+class Entity;
 
-void from_json( const nlohmann::json& j, Entity& p );
+void to_json( nlohmann::json& j, const Entity& e );
+
+void from_json( const nlohmann::json& j, Entity& e );
 
 
 } // namespace spot::jam

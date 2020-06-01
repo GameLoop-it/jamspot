@@ -2,15 +2,16 @@
 
 #include <nlohmann/json.hpp>
 
-#include <spot/gfx/node.h>
 
 namespace spot::gfx
 {
 
 
-void to_json( nlohmann::json& j, const gfx::Node& n );
+class Node;
 
-void from_json( const nlohmann::json& j, gfx::Node& n );
+void to_json( nlohmann::json& j, const Node& n );
+
+void from_json( const nlohmann::json& j, Node& n );
 
 
 } // namespace spot::jam

@@ -35,6 +35,14 @@ class Map
 	/// @param model Model used to store meshes and nodes
 	Map( const char* path, Tileset& tiles, gfx::Model& model );
 
+	/// @brief Constructs a new map from raw data
+	/// @param data Raw data containing json representation of map
+	Map( const std::vector<uint8_t>& data, Tileset& tiles, gfx::Model& model );
+
+	/// @brief Save map to file
+	/// @param path File path where to save map data
+	void save( const char* path ) const;
+
 	/// @brief Adds an entity to the map at a specific cell position
 	/// @param e Entity expected to have a valid node
 	void emplace( const Entity& e );

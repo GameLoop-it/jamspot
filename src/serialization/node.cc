@@ -1,11 +1,13 @@
 #include "spot/jam/serialization/node.h"
 
+#include <spot/gfx/node.h>
+
 
 namespace spot::gfx
 {
 
 
-void to_json( nlohmann::json& j, const gfx::Node& n )
+void to_json( nlohmann::json& j, const Node& n )
 {
 	j["x"] = n.get_translation().x;
 	j["y"] = n.get_translation().y;
@@ -13,7 +15,7 @@ void to_json( nlohmann::json& j, const gfx::Node& n )
 }
 
 
-void from_json( const nlohmann::json& j, gfx::Node& n )
+void from_json( const nlohmann::json& j, Node& n )
 {
 	n.set_translation_x( j["x"].get<float>() );
 	n.set_translation_y( j["y"].get<float>() );

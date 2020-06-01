@@ -7,6 +7,7 @@
 namespace spot::jam
 {
 
+
 /// Default viewport is offset(-1,-1) extent(2, 2)
 /// @return A screen-size viewport
 VkViewport create_viewport( VkExtent2D extent )
@@ -30,9 +31,8 @@ Game::Game()
 , model { gfx.models.push() }
 , tileset { "res/img/assets.png", *model }
 , player { "res/data/player.json", tileset, *model }
+, map { "res/data/map.json", tileset, *model }
 {
-	map.root = model->nodes.push();
-
 	gfx.camera.set_orthographic( create_viewport( extent ) );
 }
 
@@ -64,6 +64,7 @@ void Game::run()
 
 Game::~Game()
 {
+	map.save( "res/data/map.json" );
 	player.save( "res/data/player.json" );
 	gfx.device.wait_idle();
 }
