@@ -1,6 +1,7 @@
 #pragma once
 
 #include <spot/gfx/graphics.h>
+#include <spot/gfx/collisions.h>
 
 #include "spot/jam/tileset.h"
 #include "spot/jam/map.h"
@@ -22,6 +23,9 @@ class Game
 
 	/// With this we make fireworks
 	gfx::Graphics gfx;
+
+	/// With this we trigger cool explosions
+	gfx::Collisions collisions;
 
 	/// The model stores everything related to a scene
 	Handle<gfx::Model> model;

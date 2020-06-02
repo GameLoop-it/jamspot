@@ -33,6 +33,8 @@ Game::Game()
 , player { "res/data/player.json", tileset, *model }
 , map { "res/data/map.json", tileset, *model }
 {
+	player.node->name = "player";
+	player.node->bounds->dynamic = true;
 	gfx.camera.set_orthographic( create_viewport( extent ) );
 }
 
@@ -49,6 +51,12 @@ void Game::run()
 		Player::Action::update( gfx.window.input, *player.node, map, tileset, *model );
 
 		map.root->update_transforms();
+		player.node->update_transforms();
+
+		collisions.add( *map.root );
+		collisions.add( *player.node );
+		collisions.update();
+
 		player.node->update_transforms();
 
 		if ( gfx.render_begin() )

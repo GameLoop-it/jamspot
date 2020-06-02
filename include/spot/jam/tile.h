@@ -32,6 +32,11 @@ class Tile
 	/// Coordinates of the tile in the atlas
 	uint32_t x = 0;
 	uint32_t y = 0;
+
+	/// Whether the player can pass on the tile or not
+	/// @example This would be false for tiles like grass
+	/// @example True for tiles like trees
+	bool non_passable = false;
 };
 
 
