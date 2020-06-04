@@ -26,8 +26,7 @@ VkViewport create_viewport( VkExtent2D extent )
 
 
 Game::Game()
-: extent { 320, 240 }
-, gfx { extent }
+: gfx { VkExtent2D { 320 * 3, 240 * 3 }, true }
 , model { gfx.models.push() }
 , tileset { "res/img/assets.png", *model }
 , player { "res/data/player.json", tileset, *model }
@@ -35,7 +34,7 @@ Game::Game()
 {
 	player.node->name = "player";
 	player.node->bounds->dynamic = true;
-	gfx.camera.set_orthographic( create_viewport( extent ) );
+	gfx.camera.set_orthographic( create_viewport( VkExtent2D { 320, 240 } ) );
 }
 
 

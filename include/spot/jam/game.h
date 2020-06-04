@@ -6,8 +6,10 @@
 #include "spot/jam/tileset.h"
 #include "spot/jam/map.h"
 
+
 namespace spot::jam
 {
+
 
 class Game
 {
@@ -18,9 +20,6 @@ class Game
 	void run();
 
   private:
-	/// Frame extent
-	VkExtent2D extent;
-
 	/// With this we make fireworks
 	gfx::Graphics gfx;
 
@@ -37,5 +36,6 @@ class Game
 	/// This is the game map
 	Map map;
 };
+
 
 } // namespace spot::jam
