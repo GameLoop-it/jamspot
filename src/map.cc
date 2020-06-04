@@ -25,4 +25,12 @@ void Map::emplace( const Entity& e )
 }
 
 
+void Map::emplace_dynamic( const Entity& e )
+{
+	// Add new node
+	root->add_child( e.node );
+	entities.emplace_back( std::move( e ) );
+}
+
+
 } // namespace spot::jam

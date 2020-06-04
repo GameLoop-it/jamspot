@@ -47,6 +47,10 @@ class Map
 	/// @param e Entity expected to have a valid node
 	void emplace( const Entity& e );
 
+	/// @brief Adds a dynamic entity to the map
+	/// @param e Entity expected to have a valid node
+	void emplace_dynamic( const Entity& e );
+
 	/// The root node of the map is used to update and draw
 	/// recursively all its child, which are nodes of the map
 	Handle<gfx::Node> root;
@@ -54,6 +58,10 @@ class Map
 	/// Map has a collection of entities, each entity should occupy one
 	/// single cell, therefore key is hash of (x,y) coordinates
 	std::unordered_map<math::Vec2, Entity> cells;
+
+	/// Collection of dynamic entities. Unlike cells these entities are not
+	/// confined to a cell, but they could go everywhere in the map.
+	std::vector<Entity> entities;
 };
 
 

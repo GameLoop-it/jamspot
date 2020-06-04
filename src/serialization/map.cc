@@ -44,6 +44,13 @@ void to_json( nlohmann::json& j, const Map& p )
 		array.emplace_back( entity );
 	}
 	j["cells"] = array;
+
+	auto entities = nlohmann::json::array();
+	for( auto& entity : p.entities )
+	{
+		entities.emplace_back( entity );
+	}
+	j["entities"] = entities;
 }
 
 
@@ -67,6 +74,13 @@ Map::Map( const std::vector<uint8_t>& data, Tileset& tiles, gfx::Model& model )
 	{
 		auto entity = Entity::from_cbor( nlohmann::json::to_cbor( jentity ), tiles, model );
 		emplace( std::move( entity ) );
+	}
+
+	// Populate entities
+	for ( auto& jentity : j["entities"] )
+	{
+		auto entity = Entity::from_cbor( nlohmann::json::to_cbor( jentity ), tiles, model );
+		emplace_dynamic( std::move( entity ) );
 	}
 }
 
