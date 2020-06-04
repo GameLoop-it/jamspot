@@ -37,6 +37,11 @@ class Tile
 	/// @example This would be false for tiles like grass
 	/// @example True for tiles like trees
 	bool non_passable = false;
+
+	/// Whether the player can push this tile or not
+	/// @example False for tiles like trees
+	/// @example True for tile like crates
+	bool movable = false;
 };
 
 

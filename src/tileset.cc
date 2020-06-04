@@ -41,11 +41,33 @@ Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
 	{
 		// Add logic to push player away
 		bounds->colliding_with = []( gfx::Node& self, gfx::Node& other ) {
+			math::Vec2 distance = gfx::Bounds::distance( self, other );
+
+			// Choose shortest distance to move the player away
+			if ( std::fabs( distance.x ) < std::fabs( distance.y ) )
+			{
+				distance.y = 1.0f / distance.y;
+			}
+			else
+			{
+				distance.x = 1.0f / distance.x;
+			}
+
+			other.translate( -distance );
+		};
+	}
+
+	if ( tile.movable )
+	{
+		bounds->dynamic = true;
+
+		// Add logic to push the node away
+		bounds->colliding_with = []( gfx::Node& self, gfx::Node& other ) {
 			if ( other.name == "player" )
 			{
 				math::Vec2 distance = gfx::Bounds::distance( self, other );
 
-				// Choose shortest distance to move the player away
+				// Choose shortest distance
 				if ( std::fabs( distance.x ) < std::fabs( distance.y ) )
 				{
 					distance.y = 0;
@@ -55,7 +77,10 @@ Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
 					distance.x = 0;
 				}
 
-				other.translate( -distance );
+				// Push this node
+				self.translate( distance / 2.0f );
+				// While slowing down the player as well
+				other.translate( -distance / 2.0f );
 			}
 		};
 	}
