@@ -57,6 +57,7 @@ void Entity::create_node( const gfx::Node& tnode, Tileset& tiles, gfx::Model& mo
 {
 	node = tiles.create_node( tile, model );
 	node->set_translation( tnode.get_translation() );
+	node->name = tnode.name;
 }
 
 

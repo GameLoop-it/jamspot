@@ -34,6 +34,7 @@ Tileset::Resources::iterator Tileset::emplace( const Tile& tile, gfx::Model& mod
 Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
 {
 	Handle<gfx::Node> node = model.nodes.push();
+	node->name = tile.name;
 	node->mesh = emplace( tile, model )->second.second;
 
 	// Create collision bounds for the node
