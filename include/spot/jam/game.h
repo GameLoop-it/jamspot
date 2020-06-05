@@ -5,6 +5,7 @@
 
 #include "spot/jam/tileset.h"
 #include "spot/jam/map.h"
+#include "spot/jam/editor/editor.h"
 
 
 namespace spot::jam
@@ -35,6 +36,8 @@ class Game
 
 	/// This is the game map
 	Map map;
+
+	Editor editor;
 };
 
 

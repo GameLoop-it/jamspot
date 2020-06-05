@@ -2,6 +2,7 @@
 
 #include "spot/jam/tile.h"
 #include "spot/jam/player.h"
+#include "spot/jam/editor/editor.h"
 
 
 namespace spot::jam
@@ -57,6 +58,11 @@ void Game::run()
 		collisions.update();
 
 		player.node->update_transforms();
+
+		// Draw gui between NewFrame and update
+		ImGui::NewFrame();
+		editor.draw( tileset );
+		gfx.gui.update( delta );
 
 		if ( gfx.render_begin() )
 		{
