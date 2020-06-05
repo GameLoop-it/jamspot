@@ -93,6 +93,7 @@ void Map::save( const char* path ) const
 	nlohmann::json j = *this;
 	auto file = std::fstream( path, std::ios::trunc | std::ios::out );
 	file << j;
+	logs( "Map saved to {}\n", path );
 }
 
 

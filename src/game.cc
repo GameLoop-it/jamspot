@@ -91,7 +91,6 @@ void Game::run()
 
 Game::~Game()
 {
-	map.save( "res/data/map.json" );
 	player.save( "res/data/player.json" );
 	tileset.save( "res/data/tileset.json" );
 	gfx.device.wait_idle();

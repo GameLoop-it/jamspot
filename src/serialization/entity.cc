@@ -66,6 +66,7 @@ void Entity::save( const char* path ) const
 	nlohmann::json j = *this;
 	auto file = std::fstream( path, std::ios::trunc | std::ios::out );
 	file << j;
+	logs( "{} saved to {}\n", node->name, path );
 }
 
 

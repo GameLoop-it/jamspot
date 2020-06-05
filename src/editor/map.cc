@@ -34,6 +34,11 @@ void Editor::draw( Map& map )
 {
 	ImGui::Begin( "Map" );
 
+	if ( ImGui::Button( "Save" ) )
+	{
+		map.save( "res/data/map.json" );
+	}
+
 	if ( map.entities->empty() )
 	{
 		selected_entity = {};

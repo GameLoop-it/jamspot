@@ -1,6 +1,7 @@
 #include "spot/jam/serialization/tileset.h"
 #include "spot/jam/tileset.h"
 
+#include <spot/log.h>
 #include <spot/file/ifstream.h>
 #include <spot/gfx/model.h>
 
@@ -48,6 +49,7 @@ void Tileset::save( const char* path ) const
 	nlohmann::json j = *this;
 	auto file = std::fstream( path, std::ios::trunc | std::ios::out );
 	file << j;
+	logs( "Tileset saved to {}\n", path );
 }
 
 
