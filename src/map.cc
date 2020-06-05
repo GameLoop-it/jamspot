@@ -43,7 +43,7 @@ void Map::emplace_dynamic( const Entity& e )
 	// Add new node
 	e.node->set_translation_z( 0.0f );
 	root->add_child( e.node );
-	entities.emplace_back( std::move( e ) );
+	entities.push( std::move( e ) );
 }
 
 

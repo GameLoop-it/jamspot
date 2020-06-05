@@ -46,9 +46,12 @@ void to_json( nlohmann::json& j, const Map& p )
 	j["cells"] = array;
 
 	auto entities = nlohmann::json::array();
-	for( auto& entity : p.entities )
+	for ( auto& entity : *p.entities )
 	{
-		entities.emplace_back( entity );
+		if ( entity.handle )
+		{
+			entities.emplace_back( entity );
+		}
 	}
 	j["entities"] = entities;
 }

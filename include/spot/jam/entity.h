@@ -20,7 +20,7 @@ namespace spot::jam
 
 class Tileset;
 
-class Entity
+class Entity : public Handled<Entity>
 {
   public:
 	static Entity from_cbor( const std::vector<uint8_t>& data, Tileset& tiles, gfx::Model& model );
