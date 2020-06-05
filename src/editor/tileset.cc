@@ -16,6 +16,8 @@ void Editor::draw( Tile& tile )
 	ImGui::Text( "[%u,%u]", tile.id.x, tile.id.y );
 	ImGui::SameLine();
 	ImGui::InputText( "", tile.name.data(), tile.name.size() - 1 );
+	ImGui::Checkbox( "non passable", &tile.non_passable );
+	ImGui::Checkbox( "movable", &tile.movable );
 	ImGui::End();
 }
 

@@ -50,11 +50,11 @@ Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
 			// Choose shortest distance to move the player away
 			if ( std::fabs( distance.x ) < std::fabs( distance.y ) )
 			{
-				distance.y = 1.0f / distance.y;
+				distance.y = 0.0f;
 			}
 			else
 			{
-				distance.x = 1.0f / distance.x;
+				distance.x = 0.0f;
 			}
 
 			other.translate( -distance );
