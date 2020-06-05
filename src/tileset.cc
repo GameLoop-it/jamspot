@@ -39,7 +39,7 @@ Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
 	// Create collision bounds for the node
 	auto bounds = model.bounds.push();
 	node->bounds = bounds;
-	bounds->shape = math::Rect::Unit * Tile::tile_size;
+	bounds->shape = math::Rect::Unit * ( Tile::tile_size - 2 );
 
 	if ( tile.non_passable )
 	{
@@ -67,25 +67,30 @@ Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
 
 		// Add logic to push the node away
 		bounds->colliding_with = []( gfx::Node& self, gfx::Node& other ) {
+			math::Vec2 distance = gfx::Bounds::distance( self, other );
+
+			// Choose shortest distance
+			if ( std::fabs( distance.x ) < std::fabs( distance.y ) )
+			{
+				distance.y = 0;
+			}
+			else
+			{
+				distance.x = 0;
+			}
+
 			if ( other.name == "player" )
 			{
-				math::Vec2 distance = gfx::Bounds::distance( self, other );
-
-				// Choose shortest distance
-				if ( std::fabs( distance.x ) < std::fabs( distance.y ) )
-				{
-					distance.y = 0;
-				}
-				else
-				{
-					distance.x = 0;
-				}
-
 				// Push this node
 				self.translate( distance / 2.0f );
 				// While slowing down the player as well
 				other.translate( -distance / 2.0f );
 			}
+			else if ( other.bounds->dynamic )
+			{
+				other.translate( -distance );
+			}
+			
 		};
 	}
 
