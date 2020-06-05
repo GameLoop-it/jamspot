@@ -20,16 +20,16 @@ Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
 	Handle<gfx::Node> node = model.nodes.push();
 
 	// Reuse meshes for node created from the same tile
-	if ( auto it = tiles.find( tile ); it != std::end( tiles ) )
+	if ( auto it = tiles.find( tile.id ); it != std::end( tiles ) )
 	{
-		node->mesh = it->second;
+		node->mesh = it->second.second;
 	}
 	else
 	{
 		Handle<gfx::Mesh> mesh = tile.create_quad( *material, model );
 		node->mesh = mesh;
-		auto [pair, ok] = tiles.emplace( tile, std::move( mesh ) );
-		assert( ok && "Can not add tile to tileset" );
+		auto pair = std::make_pair( std::move( tile ), std::move( mesh ) );
+		auto [_, ok] = tiles.emplace( tile.id, std::move( pair ) );
 	}
 
 	// Create collision bounds for the node

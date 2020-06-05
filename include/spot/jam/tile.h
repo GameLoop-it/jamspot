@@ -15,15 +15,25 @@ namespace spot::jam
 {
 
 
+/// @brief Coordinates of the tile in the atlas
+struct TileId
+{
+	uint32_t x = 0;
+	uint32_t y = 0;
+
+	bool operator==( const TileId& o ) const { return x == o.x && y == o.y; }
+};
+
+
 class Tile
 {
   public:
 	static constexpr uint32_t tile_size = 16;
 
 	Tile() = default;
-	Tile( uint32_t xx, uint32_t yy ) : x { xx }, y { yy } {}
+	Tile( uint32_t xx, uint32_t yy ) : id { xx, yy } {}
 
-	bool operator==( const Tile& o ) const { return x == o.x && y == o.y; }
+	bool operator==( const Tile& o ) const { return id == o.id; }
 
 	/// @brief Constructs a mesh for a tile
 	/// @param material Material with the texture atlas containing tiles
@@ -31,9 +41,7 @@ class Tile
 	/// @return A mesh for that tile in the atlas
 	Handle<gfx::Mesh> create_quad( const gfx::Material& material, gfx::Model& model ) const;
 
-	/// Coordinates of the tile in the atlas
-	uint32_t x = 0;
-	uint32_t y = 0;
+	TileId id = {};
 
 	/// Name of the tile
 	std::string name = "noname";
@@ -56,12 +64,12 @@ class Tile
 namespace std
 {
 template <>
-class hash<spot::jam::Tile>
+class hash<spot::jam::TileId>
 {
   public:
-	size_t operator()( const spot::jam::Tile& t ) const
+	size_t operator()( const spot::jam::TileId& id ) const
 	{
-		return hash_combine( t.x, t.y );
+		return hash_combine( id.x, id.y );
 	}
 };
 }

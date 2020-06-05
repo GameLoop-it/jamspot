@@ -19,7 +19,7 @@ class Editor
 	void draw( Tileset& tileset );
 
 	/// Current selected tile prototype
-	const Tile* selected = nullptr;
+	Tile* selected = nullptr;
 };
 
 

@@ -41,7 +41,7 @@ class Tileset
 	Handle<gfx::Material> material;
 
 	/// Map of tiles and their quad meshes
-	std::unordered_map<Tile, Handle<gfx::Mesh>> tiles;
+	std::unordered_map<TileId, std::pair<Tile, Handle<gfx::Mesh>>> tiles;
 };
 
 

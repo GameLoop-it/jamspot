@@ -13,15 +13,25 @@ void Editor::draw( Tileset& tileset )
 {
 	ImGui::Begin( "Tileset" );
 
-	for ( auto& [tile,_] : tileset.tiles )
+	Tile* current_selected = nullptr;
+
+	for ( auto& [id,pair] : tileset.tiles )
 	{
+		Tile& tile = pair.first;
+
 		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_Leaf;
-		flags |= ( selected == &tile ) ? ImGuiTreeNodeFlags_Selected : 0;
+
+		if ( selected == &tile )
+		{
+			current_selected = &tile;
+			flags |= ImGuiTreeNodeFlags_Selected;
+		}
+
 		bool open = ImGui::TreeNodeEx( tile.name.c_str(), flags );
 
 		if ( ImGui::IsItemClicked() )
 		{
-			selected = &tile;
+			selected = current_selected = &tile;
 		}
 
 		if ( open )

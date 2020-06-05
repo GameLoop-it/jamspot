@@ -5,10 +5,23 @@ namespace spot::jam
 {
 
 
+void to_json( nlohmann::json& j, const TileId& id )
+{
+	j["x"] = id.x;
+	j["y"] = id.y;
+}
+
+
+void from_json( const nlohmann::json& j, TileId& id )
+{
+	id.x = j["x"].get<float>();
+	id.y = j["y"].get<float>();
+}
+
+
 void to_json( nlohmann::json& j, const Tile& t )
 {
-	j["x"] = t.x;
-	j["y"] = t.y;
+	j["id"] = t.id;
 	j["name"] = t.name;
 	j["non_passable"] = t.non_passable;
 	j["movable"] = t.movable;
@@ -17,8 +30,7 @@ void to_json( nlohmann::json& j, const Tile& t )
 
 void from_json( const nlohmann::json& j, Tile& t )
 {
-	t.x = j["x"].get<float>();
-	t.y = j["y"].get<float>();
+	t.id = j["id"].get<TileId>();
 	
 	// Optionals
 

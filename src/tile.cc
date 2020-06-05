@@ -12,7 +12,7 @@ namespace spot::jam
 Handle<gfx::Mesh> Tile::create_quad( const gfx::Material& material, gfx::Model& model ) const
 {
 	// Empty tile at (0,0)
-	if ( x == 0 && y == 0 )
+	if ( id.x == 0 && id.y == 0 )
 	{
 		return {};
 	}
@@ -34,8 +34,8 @@ Handle<gfx::Mesh> Tile::create_quad( const gfx::Material& material, gfx::Model& 
 	float x_size = 1 / x_tiles;
 	float y_size = 1 / y_tiles;
 
-	float x_coord = x * x_size;
-	float y_coord = y * y_size;
+	float x_coord = id.x * x_size;
+	float y_coord = id.y * y_size;
 
 	gfx::Primitive& prim = quad.primitives[0];
 

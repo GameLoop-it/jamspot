@@ -8,6 +8,11 @@ namespace spot::jam
 {
 
 
+void to_json( nlohmann::json& j, const TileId& id );
+
+void from_json( const nlohmann::json& j, TileId& id );
+
+
 void to_json( nlohmann::json& j, const Tile& t );
 
 void from_json( const nlohmann::json& j, Tile& t );
