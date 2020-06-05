@@ -9,6 +9,7 @@ void to_json( nlohmann::json& j, const Tile& t )
 {
 	j["x"] = t.x;
 	j["y"] = t.y;
+	j["name"] = t.name;
 	j["non_passable"] = t.non_passable;
 	j["movable"] = t.movable;
 }
@@ -20,6 +21,11 @@ void from_json( const nlohmann::json& j, Tile& t )
 	t.y = j["y"].get<float>();
 	
 	// Optionals
+
+	if ( j.count( "name" ) )
+	{
+		t.name = j["name"].get<std::string>();
+	}
 
 	if ( j.count( "non_passable" ) )
 	{

@@ -1,6 +1,8 @@
 #pragma once
 
+#include <string>
 #include <spot/handle.h>
+
 
 namespace spot::gfx
 {
@@ -32,6 +34,9 @@ class Tile
 	/// Coordinates of the tile in the atlas
 	uint32_t x = 0;
 	uint32_t y = 0;
+
+	/// Name of the tile
+	std::string name = "noname";
 
 	/// Whether the player can pass on the tile or not
 	/// @example This would be false for tiles like grass
