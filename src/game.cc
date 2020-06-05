@@ -48,7 +48,11 @@ void Game::run()
 		gfx.window.update();
 		auto delta = gfx.glfw.get_delta();
 
-		editor.update( gfx, map, tileset, *model );
+		// Do not propagate input when using gui
+		if ( !ImGui::IsAnyWindowHovered() )
+		{
+			editor.update( gfx, map, tileset, *model );
+		}
 
 		Player::Movement::update( delta, gfx.window.input, player );
 
@@ -63,7 +67,7 @@ void Game::run()
 
 		// Draw gui between NewFrame and update
 		ImGui::NewFrame();
-		editor.draw( tileset );
+		editor.draw( tileset, *model );
 		editor.draw( map );
 		gfx.gui.update( delta );
 

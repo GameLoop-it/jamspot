@@ -17,7 +17,9 @@ Editor::Editor( gfx::Model& model )
 	model.meshes.push( gfx::Mesh::create_rect(
 		math::Rect::Unit * Tile::tile_size, gfx::Color::Red
 	) ) }
-{}
+{
+	new_tile.name.resize( 16 );
+}
 
 
 void Editor::update( const gfx::Graphics& gfx, Map& map, Tileset& tileset, gfx::Model& model )

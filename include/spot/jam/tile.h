@@ -32,6 +32,7 @@ class Tile
 
 	Tile() = default;
 	Tile( uint32_t xx, uint32_t yy ) : id { xx, yy } {}
+	Tile( uint32_t xx, uint32_t yy, const std::string& n ) : id { xx, yy }, name { n } {}
 
 	bool operator==( const Tile& o ) const { return id == o.id; }
 
@@ -44,7 +45,7 @@ class Tile
 	TileId id = {};
 
 	/// Name of the tile
-	std::string name = "noname";
+	std::string name = "empty";
 
 	/// Whether the player can pass on the tile or not
 	/// @example This would be false for tiles like grass

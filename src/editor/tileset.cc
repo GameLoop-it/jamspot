@@ -22,9 +22,24 @@ void Editor::draw( Tile& tile )
 }
 
 
-void Editor::draw( Tileset& tileset )
+void Editor::draw( Tileset& tileset, gfx::Model& model )
 {
 	ImGui::Begin( "Tileset" );
+
+	int x = new_tile.id.x;
+	ImGui::InputInt( "x", &x );
+	new_tile.id.x = uint32_t( x );
+
+	int y = new_tile.id.y;
+	ImGui::InputInt( "y", &y );
+	new_tile.id.y = uint32_t( y );
+
+	ImGui::InputText( "", new_tile.name.data(), new_tile.name.size() - 1 );
+
+	if ( ImGui::Button( "new" ) )
+	{
+		tileset.emplace( new_tile, model );
+	}
 
 	Tile* current_selected = nullptr;
 

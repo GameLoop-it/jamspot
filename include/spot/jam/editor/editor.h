@@ -2,6 +2,8 @@
 
 #include <spot/handle.h>
 
+#include "spot/jam/tile.h"
+
 
 namespace spot::gfx
 {
@@ -27,13 +29,15 @@ class Entity;
 class Editor
 {
   public:
+	/// @param model Used to store nodes and meshes
 	Editor( gfx::Model& model );
 
 	/// @brief Draw a window with information about a tile prototype
 	void draw( Tile& tile );
 
 	/// @brief Draw a window with the list of tiles in a tileset
-	void draw( Tileset& tileset );
+	/// @param model Used to store nodes and meshes
+	void draw( Tileset& tileset, gfx::Model& model );
 
 	/// @brief Draw a window with the information about an entity in the map
 	void draw( Entity& entity, Map& map );
@@ -49,6 +53,9 @@ class Editor
 	void update( const gfx::Graphics& window, Map& map, Tileset& tileset, gfx::Model& model );
 
 	Handle<gfx::Mesh> debug_rect;
+
+	/// New tile prototype to use within tileset window
+	Tile new_tile;
 
 	/// Current selected tile prototype
 	Tile* selected = nullptr;
