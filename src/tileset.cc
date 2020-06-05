@@ -15,22 +15,26 @@ Tileset::Tileset( const char* path, gfx::Model& model )
 {}
 
 
-Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
+Tileset::Resources::iterator Tileset::emplace( const Tile& tile, gfx::Model& model )
 {
-	Handle<gfx::Node> node = model.nodes.push();
-
 	// Reuse meshes for node created from the same tile
 	if ( auto it = tiles.find( tile.id ); it != std::end( tiles ) )
 	{
-		node->mesh = it->second.second;
+		return it;
 	}
-	else
-	{
-		Handle<gfx::Mesh> mesh = tile.create_quad( *material, model );
-		node->mesh = mesh;
-		auto pair = std::make_pair( std::move( tile ), std::move( mesh ) );
-		auto [_, ok] = tiles.emplace( tile.id, std::move( pair ) );
-	}
+
+	Handle<gfx::Mesh> mesh = tile.create_quad( *material, model );
+	auto pair = std::make_pair( std::move( tile ), std::move( mesh ) );
+	auto [it, ok] = tiles.emplace( tile.id, std::move( pair ) );
+	assert( ok && "Can not add tile to tileset" );
+	return it;
+}
+
+
+Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
+{
+	Handle<gfx::Node> node = model.nodes.push();
+	node->mesh = emplace( tile, model )->second.second;
 
 	// Create collision bounds for the node
 	auto bounds = model.bounds.push();

@@ -29,7 +29,7 @@ VkViewport create_viewport( VkExtent2D extent )
 Game::Game()
 : gfx { VkExtent2D { 320 * 3, 240 * 3 }, true }
 , model { gfx.models.push() }
-, tileset { "res/img/assets.png", *model }
+, tileset { Tileset::from_json( "res/data/tileset.json", *model ) }
 , player { "res/data/player.json", tileset, *model }
 , map { "res/data/map.json", tileset, *model }
 {
@@ -79,6 +79,7 @@ Game::~Game()
 {
 	map.save( "res/data/map.json" );
 	player.save( "res/data/player.json" );
+	tileset.save( "res/data/tileset.json" );
 	gfx.device.wait_idle();
 }
 

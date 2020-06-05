@@ -8,6 +8,7 @@ set( LIB_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/serialization/serialization.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/serialization/entity.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/serialization/tile.cc
+	${CMAKE_CURRENT_SOURCE_DIR}/serialization/tileset.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/serialization/node.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/serialization/map.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/editor/tileset.cc
