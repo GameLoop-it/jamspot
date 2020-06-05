@@ -15,6 +15,9 @@ class Tile;
 class Editor
 {
   public:
+	/// @brief Draw a window with information about a tile prototype
+	void draw( Tile& tile );
+
 	/// @brief Draw a window with the list of tiles in a tileset
 	void draw( Tileset& tileset );
 

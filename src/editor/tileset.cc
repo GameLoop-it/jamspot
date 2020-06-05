@@ -9,6 +9,17 @@ namespace spot::jam
 {
 
 
+void Editor::draw( Tile& tile )
+{
+	ImGui::Begin( "Tile" );
+	tile.name.resize( 16 );
+	ImGui::Text( "[%u,%u]", tile.id.x, tile.id.y );
+	ImGui::SameLine();
+	ImGui::InputText( "", tile.name.data(), tile.name.size() - 1 );
+	ImGui::End();
+}
+
+
 void Editor::draw( Tileset& tileset )
 {
 	ImGui::Begin( "Tileset" );
@@ -40,6 +51,10 @@ void Editor::draw( Tileset& tileset )
 		}
 	}
 
+	if ( current_selected )
+	{
+		draw( *current_selected );
+	}
 
 	ImGui::End();
 }
