@@ -46,6 +46,10 @@ class Map
 	/// @brief Adds an entity to the map at a specific cell position
 	/// @param e Entity expected to have a valid node
 	void emplace( const Entity& e );
+	
+	/// @brief Removes the static entity within the cell at that position
+	/// @param p Position where to remove the static entity
+	void remove_static( const math::Vec2& p );
 
 	/// @brief Adds a dynamic entity to the map
 	/// @param e Entity expected to have a valid node

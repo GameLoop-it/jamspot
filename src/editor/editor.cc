@@ -41,6 +41,13 @@ void Editor::update( const gfx::Graphics& gfx, Map& map, Tileset& tileset, gfx::
 			map.emplace( std::move( entity ) );
 		}
 	}
+
+	if ( gfx.window.input.click.middle )
+	{
+		// Delete static tile
+		math::Vec2 coords = gfx.window.cursor_to( gfx.viewport.get_abstract() );
+		map.remove_static( coords );
+	}
 }
 
 
