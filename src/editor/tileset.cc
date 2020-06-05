@@ -18,6 +18,7 @@ void Editor::draw( Tile& tile )
 	ImGui::InputText( "", tile.name.data(), tile.name.size() - 1 );
 	ImGui::Checkbox( "non passable", &tile.non_passable );
 	ImGui::Checkbox( "movable", &tile.movable );
+	ImGui::Checkbox( "trigger", &tile.trigger );
 	ImGui::End();
 }
 

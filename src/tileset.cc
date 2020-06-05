@@ -35,7 +35,9 @@ Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
 {
 	Handle<gfx::Node> node = model.nodes.push();
 	node->name = tile.name;
-	node->mesh = emplace( tile, model )->second.second;
+
+	// Clone the prototype mesh instead of using a shared one
+	node->mesh = emplace( tile, model )->second.second.clone();
 
 	// Create collision bounds for the node
 	auto bounds = model.bounds.push();
@@ -92,6 +94,26 @@ Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
 				other.translate( -distance );
 			}
 			
+		};
+	}
+
+	if ( tile.trigger )
+	{
+		// Small rectangle collider
+		bounds->shape = math::Rect::Unit;
+
+		bounds->begin_colliding_with = []( gfx::Node& self, gfx::Node& other ) {
+			if ( other.bounds->dynamic && other.name != "player" )
+			{
+				other.mesh->set_color( gfx::Color::Yellow );
+			}
+		};
+
+		bounds->end_colliding_with = []( gfx::Node& self, gfx::Node& other ) {
+			if ( other.bounds->dynamic && other.name != "player" )
+			{
+				other.mesh->set_color( gfx::Color::White );
+			}
 		};
 	}
 

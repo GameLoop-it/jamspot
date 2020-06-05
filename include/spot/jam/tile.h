@@ -56,6 +56,10 @@ class Tile
 	/// @example False for tiles like trees
 	/// @example True for tile like crates
 	bool movable = false;
+
+	/// This trigger is very specific to the jamspot game
+	/// @example True for tiles which are targets for blocks
+	bool trigger = false;
 };
 
 

@@ -25,6 +25,7 @@ void to_json( nlohmann::json& j, const Tile& t )
 	j["name"] = t.name;
 	j["non_passable"] = t.non_passable;
 	j["movable"] = t.movable;
+	j["trigger"] = t.trigger;
 }
 
 
@@ -47,6 +48,11 @@ void from_json( const nlohmann::json& j, Tile& t )
 	if ( j.count( "movable" ) )
 	{
 		t.movable = j["movable"].get<bool>();
+	}
+
+	if ( j.count( "trigger" ) )
+	{
+		t.trigger = j["trigger"].get<bool>();
 	}
 }
 
