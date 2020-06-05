@@ -12,6 +12,7 @@ set( LIB_SOURCES
 	${CMAKE_CURRENT_SOURCE_DIR}/serialization/node.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/serialization/map.cc
 	${CMAKE_CURRENT_SOURCE_DIR}/editor/tileset.cc
+	${CMAKE_CURRENT_SOURCE_DIR}/editor/editor.cc
 )
 
 add_library( ${CMAKE_PROJECT_NAME} ${LIB_SOURCES} )

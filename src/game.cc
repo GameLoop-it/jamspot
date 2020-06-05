@@ -47,8 +47,9 @@ void Game::run()
 		gfx.window.update();
 		auto delta = gfx.glfw.get_delta();
 
+		editor.update( gfx, map, tileset, *model );
+
 		Player::Movement::update( delta, gfx.window.input, player );
-		Player::Action::update( gfx.window.input, *player.node, map, tileset, *model );
 
 		map.root->update_transforms();
 		player.node->update_transforms();
