@@ -12,6 +12,14 @@ namespace spot::jam
 {
 
 
+Editor::Editor( gfx::Model& model )
+: debug_rect {
+	model.meshes.push( gfx::Mesh::create_rect(
+		math::Rect::Unit * Tile::tile_size, gfx::Color::Red
+	) ) }
+{}
+
+
 void Editor::update( const gfx::Graphics& gfx, Map& map, Tileset& tileset, gfx::Model& model )
 {
 	if ( selected && gfx.window.input.click.left )

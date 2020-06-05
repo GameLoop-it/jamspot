@@ -27,11 +27,12 @@ VkViewport create_viewport( VkExtent2D extent )
 
 
 Game::Game()
-: gfx { VkExtent2D { 320 * 3, 240 * 3 }, true }
+: gfx { VkExtent2D { 320 * 2, 240 * 2 }, true }
 , model { gfx.models.push() }
 , tileset { Tileset::from_json( "res/data/tileset.json", *model ) }
 , player { "res/data/player.json", tileset, *model }
 , map { "res/data/map.json", tileset, *model }
+, editor { *model }
 {
 	player.node->name = "player";
 	player.node->bounds->dynamic = true;
@@ -63,12 +64,20 @@ void Game::run()
 		// Draw gui between NewFrame and update
 		ImGui::NewFrame();
 		editor.draw( tileset );
+		editor.draw( map );
 		gfx.gui.update( delta );
 
 		if ( gfx.render_begin() )
 		{
 			gfx.draw( *map.root );
 			gfx.draw( *player.node );
+
+			if ( editor.selected_entity )
+			{
+				gfx.draw(
+					*editor.selected_entity->node,
+					*editor.debug_rect );
+			}
 
 			gfx.render_end();
 		}
