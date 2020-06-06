@@ -9,6 +9,24 @@ namespace spot::jam
 {
 
 
+void Config::load_map( uint32_t new_map, Game& game )
+{
+	constexpr uint32_t map_count = 7;
+
+	if ( new_map < map_count )
+	{
+		map = new_map;
+		game.map = Map( "res/data/map", new_map, game.tileset, *game.model );
+	}
+}
+
+
+void Config::set_scale( const uint32_t s )
+{
+	scale = std::clamp<uint32_t>( s, 1, 4 );
+}
+
+
 /// Default viewport is offset(-1,-1) extent(2, 2)
 /// @return A screen-size viewport
 VkViewport create_viewport( VkExtent2D extent )
@@ -28,11 +46,11 @@ VkViewport create_viewport( VkExtent2D extent )
 
 Game::Game()
 : config { "res/data/config.json" }
-, gfx { VkExtent2D { 320 * config.scale, 240 * config.scale }, true }
+, gfx { VkExtent2D { 320 * config.get_scale(), 240 * config.get_scale() }, true }
 , model { gfx.models.push() }
 , tileset { Tileset::from_json( "res/data/tileset.json", *model ) }
 , player { "res/data/player.json", tileset, *model }
-, map { "res/data/map/", config.map, tileset, *model }
+, map { "res/data/map/", config.get_map(), tileset, *model }
 , editor { *model }
 {
 	player.node->name = "player";
@@ -59,10 +77,13 @@ void Game::run()
 		if ( !config.pause )
 		{
 			Player::Movement::update( delta, gfx.window.input, player );
+		}
 
-			map.root->update_transforms();
-			player.node->update_transforms();
+		map.root->update_transforms();
+		player.node->update_transforms();
 
+		if ( !config.pause )
+		{
 			collisions.add( *map.root );
 			collisions.add( *player.node );
 			collisions.update();
@@ -81,16 +102,15 @@ void Game::run()
 			}
 		};
 		
-		bool win = std::all_of( std::begin( blocks ), std::end( blocks ), []( gfx::Node* block ) {
-			return block->flags & Flag::MARKED;
-		} );
-
+		bool win = blocks.size() && std::all_of( std::begin( blocks ), std::end( blocks ),
+			[]( gfx::Node* block ) { return block->flags & Flag::MARKED; } );
 
 		// Draw gui between NewFrame and update
 		ImGui::NewFrame();
 
 		if ( win )
 		{
+			// Pause the game and show a message on winning
 			config.pause = true;
 
 			ImGui::SetNextWindowBgAlpha( 0.75f );
@@ -106,12 +126,24 @@ void Game::run()
 			ImGui::SetNextWindowSize( size );
 			ImGui::SetNextWindowPos( pos );
 			ImGui::Begin( "Message", nullptr, flags );
-			ImGui::Text( "You won!" );
+			ImGui::Text( "You won!\nPress Enter for the next level." );
 			ImGui::End();
+
+			if ( gfx.window.input.key.enter )
+			{
+				config.pause = false;
+				config.load_map( map.id + 1, *this );
+			}
 		}
 
-		editor.draw( tileset, *model );
-		editor.draw( map );
+		// In game editor
+		if ( config.editor )
+		{
+			editor.draw( config, *this );
+			editor.draw( tileset, *model );
+			editor.draw( map );
+		}
+
 		gfx.gui.update( delta );
 
 		if ( gfx.render_begin() )
@@ -136,6 +168,7 @@ Game::~Game()
 {
 	player.save( "res/data/player.json" );
 	tileset.save( "res/data/tileset.json" );
+	config.save( "res/data/config.json" );
 	gfx.device.wait_idle();
 }
 

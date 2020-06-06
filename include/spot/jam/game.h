@@ -22,7 +22,6 @@ class Game
 
 	void run();
 
-  private:
 	Config config;
 
 	/// With this we make fireworks

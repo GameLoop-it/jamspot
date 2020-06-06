@@ -22,6 +22,9 @@ class Tileset;
 class Map;
 class Entity;
 
+struct Config;
+class Game;
+
 
 /// @brief This is the in-game editor. Its purpose is to enable
 /// developers to create new tiles, to modify them, to put entities
@@ -31,6 +34,9 @@ class Editor
   public:
 	/// @param model Used to store nodes and meshes
 	Editor( gfx::Model& model );
+
+	/// @brief Draw a window with information about game configuration
+	void draw( Config& config, Game& game );
 
 	/// @brief Draw a window with information about a tile prototype
 	void draw( Tile& tile );
