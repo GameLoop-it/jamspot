@@ -9,10 +9,11 @@ namespace spot::jam
 {
 
 
+constexpr uint32_t map_count = 7;
+
+
 void Config::load_map( uint32_t new_map, Game& game )
 {
-	constexpr uint32_t map_count = 7;
-
 	if ( new_map < map_count )
 	{
 		map = new_map;
@@ -126,13 +127,28 @@ void Game::run()
 			ImGui::SetNextWindowSize( size );
 			ImGui::SetNextWindowPos( pos );
 			ImGui::Begin( "Message", nullptr, flags );
-			ImGui::Text( "You won!\nPress Enter for the next level." );
+			if ( map.id < map_count - 1 )
+			{
+				ImGui::Text( "You won!\nPress Enter for the next level." );
+			}
+			else
+			{
+				ImGui::Text( "Congratulations, you completed the game!\nPress enter to quit." );
+			}
 			ImGui::End();
 
 			if ( gfx.window.input.key.enter )
 			{
 				config.pause = false;
-				config.load_map( map.id + 1, *this );
+
+				if ( map.id < map_count - 1 )
+				{
+					config.load_map( map.id + 1, *this );
+				}
+				else
+				{
+					gfx.window.should_close();
+				}
 			}
 		}
 
