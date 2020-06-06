@@ -70,6 +70,9 @@ class Map
 	/// Collection of dynamic entities. Unlike cells these entities are not
 	/// confined to a cell, but they could go everywhere in the map.
 	Uvec<Entity> entities;
+
+	/// Position the player should be when loading the map
+	math::Vec2 player_position;
 };
 
 

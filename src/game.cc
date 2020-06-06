@@ -18,6 +18,9 @@ void Config::load_map( uint32_t new_map, Game& game )
 	{
 		map = new_map;
 		game.map = Map( "res/data/map", new_map, game.tileset, *game.model );
+
+		// Update player position with the initial position required by this map
+		game.player.node->set_translation( game.map.player_position );
 	}
 }
 
@@ -51,9 +54,9 @@ Game::Game()
 , model { gfx.models.push() }
 , tileset { Tileset::from_json( "res/data/tileset.json", *model ) }
 , player { "res/data/player.json", tileset, *model }
-, map { "res/data/map/", config.get_map(), tileset, *model }
 , editor { *model }
 {
+	config.load_map( config.get_map(), *this );
 	player.node->name = "player";
 	player.node->flags |= Flag::PLAYER;
 	player.node->bounds->dynamic = true;
@@ -80,6 +83,9 @@ void Game::run()
 			Player::Movement::update( delta, gfx.window.input, player );
 		}
 
+		auto& pos = player.node->get_translation();
+		map.player_position = math::Vec2( pos.x, pos.y );
+	
 		map.root->update_transforms();
 		player.node->update_transforms();
 

@@ -36,17 +36,17 @@ namespace spot::jam
 {
 
 
-void to_json( nlohmann::json& j, const Map& p )
+void to_json( nlohmann::json& j, const Map& map )
 {
 	auto array = nlohmann::json::array();
-	for ( auto& [_,entity] : p.cells )
+	for ( auto& [_,entity] : map.cells )
 	{
 		array.emplace_back( entity );
 	}
 	j["cells"] = array;
 
 	auto entities = nlohmann::json::array();
-	for ( auto& entity : *p.entities )
+	for ( auto& entity : *map.entities )
 	{
 		if ( entity.handle )
 		{
@@ -54,6 +54,8 @@ void to_json( nlohmann::json& j, const Map& p )
 		}
 	}
 	j["entities"] = entities;
+
+	j["player_position"] = map.player_position;
 }
 
 
@@ -86,6 +88,12 @@ Map::Map( const std::vector<uint8_t>& data, Tileset& tiles, gfx::Model& model )
 	{
 		auto entity = Entity::from_cbor( nlohmann::json::to_cbor( jentity ), tiles, model );
 		emplace_dynamic( std::move( entity ) );
+	}
+
+	// Load player position for this map
+	if ( j.count( "player_position" ) )
+	{
+		player_position = j["player_position"].get<math::Vec2>();
 	}
 }
 
