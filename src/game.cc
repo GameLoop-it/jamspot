@@ -3,7 +3,7 @@
 #include "spot/jam/tile.h"
 #include "spot/jam/player.h"
 #include "spot/jam/editor/editor.h"
-
+#include "spot/jam/flag.h"
 
 namespace spot::jam
 {
@@ -35,6 +35,7 @@ Game::Game()
 , editor { *model }
 {
 	player.node->name = "player";
+	player.node->flags |= Flag::PLAYER;
 	player.node->bounds->dynamic = true;
 	gfx.camera.set_orthographic( create_viewport( VkExtent2D { 320, 240 } ) );
 }

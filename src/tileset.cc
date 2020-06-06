@@ -3,6 +3,8 @@
 #include <spot/gfx/model.h>
 #include <spot/gfx/node.h>
 
+#include "spot/jam/flag.h"
+
 
 namespace spot::jam
 {
@@ -66,6 +68,7 @@ Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
 
 	if ( tile.movable )
 	{
+		node->flags |= Flag::BLOCK;
 		bounds->dynamic = true;
 
 		// Add logic to push the node away
@@ -82,7 +85,7 @@ Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
 				distance.x = 0;
 			}
 
-			if ( other.name == "player" )
+			if ( other.flags & Flag::PLAYER )
 			{
 				// Push this node
 				self.translate( distance / 2.0f );
@@ -103,16 +106,18 @@ Handle<gfx::Node> Tileset::create_node( const Tile& tile, gfx::Model& model )
 		bounds->shape = math::Rect::Unit;
 
 		bounds->begin_colliding_with = []( gfx::Node& self, gfx::Node& other ) {
-			if ( other.bounds->dynamic && other.name != "player" )
+			if ( other.flags & Flag::BLOCK )
 			{
 				other.mesh->set_color( gfx::Color::Yellow );
+				other.flags |= Flag::MARKED;
 			}
 		};
 
 		bounds->end_colliding_with = []( gfx::Node& self, gfx::Node& other ) {
-			if ( other.bounds->dynamic && other.name != "player" )
+			if ( other.flags & Flag::BLOCK )
 			{
 				other.mesh->set_color( gfx::Color::White );
+				other.flags &= ~Flag::MARKED;
 			}
 		};
 	}
