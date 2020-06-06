@@ -8,7 +8,7 @@ namespace spot::jam
 {
 
 
-std::vector<uint8_t> read_file( const char* path )
+std::vector<uint8_t> read_file( const std::string& path )
 {
 	auto file = std::fstream( path, std::ios::binary | std::ios::in );
 	if ( !file.is_open() )

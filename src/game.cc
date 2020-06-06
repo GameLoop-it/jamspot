@@ -32,7 +32,7 @@ Game::Game()
 , model { gfx.models.push() }
 , tileset { Tileset::from_json( "res/data/tileset.json", *model ) }
 , player { "res/data/player.json", tileset, *model }
-, map { "res/data/map.json", tileset, *model }
+, map { "res/data/map/", config.map, tileset, *model }
 , editor { *model }
 {
 	player.node->name = "player";

@@ -57,9 +57,11 @@ void to_json( nlohmann::json& j, const Map& p )
 }
 
 
-Map::Map( const char* path, Tileset& tiles, gfx::Model& model )
-: Map( read_file( path ), tiles, model )
-{}
+Map::Map( const char* path, const uint32_t i, Tileset& tiles, gfx::Model& model )
+: Map( read_file( fmt::format( "{}/{}.json", path, i ) ), tiles, model )
+{
+	id = i;
+}
 
 
 Map::Map( const std::vector<uint8_t>& data, Tileset& tiles, gfx::Model& model )
@@ -88,9 +90,11 @@ Map::Map( const std::vector<uint8_t>& data, Tileset& tiles, gfx::Model& model )
 }
 
 
-void Map::save( const char* path ) const
+void Map::save( const char* dir ) const
 {
 	nlohmann::json j = *this;
+
+	std::string path = fmt::format( "{}/{}.json", dir, id );
 	auto file = std::fstream( path, std::ios::trunc | std::ios::out );
 	file << j;
 	logs( "Map saved to {}\n", path );

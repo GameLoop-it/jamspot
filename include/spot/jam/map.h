@@ -30,18 +30,19 @@ class Map
 	Map() = default;
 
 	/// @brief Constructs a new map from file
-	/// @param path File path containing map data
+	/// @param dir Directory path containing map json file
+	/// @param id Number of the map
 	/// @param tiles Tileset containing the mesh for the nodes
 	/// @param model Model used to store meshes and nodes
-	Map( const char* path, Tileset& tiles, gfx::Model& model );
+	Map( const char* dir, uint32_t id, Tileset& tiles, gfx::Model& model );
 
 	/// @brief Constructs a new map from raw data
 	/// @param data Raw data containing json representation of map
 	Map( const std::vector<uint8_t>& data, Tileset& tiles, gfx::Model& model );
 
 	/// @brief Save map to file
-	/// @param path File path where to save map data
-	void save( const char* path ) const;
+	/// @param path Directory path where to save map json file
+	void save( const char* dir ) const;
 
 	/// @brief Adds an entity to the map at a specific cell position
 	/// @param e Entity expected to have a valid node
@@ -54,6 +55,9 @@ class Map
 	/// @brief Adds a dynamic entity to the map
 	/// @param e Entity expected to have a valid node
 	void emplace_dynamic( const Entity& e );
+
+	/// Number of the map
+	uint32_t id = 0;
 
 	/// The root node of the map is used to update and draw
 	/// recursively all its child, which are nodes of the map

@@ -36,7 +36,7 @@ void Editor::draw( Map& map )
 
 	if ( ImGui::Button( "Save" ) )
 	{
-		map.save( "res/data/map.json" );
+		map.save( "res/data/map" );
 	}
 
 	if ( map.entities->empty() )
