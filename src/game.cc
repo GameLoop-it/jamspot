@@ -55,19 +55,60 @@ void Game::run()
 			editor.update( gfx, map, tileset, *model );
 		}
 
-		Player::Movement::update( delta, gfx.window.input, player );
+		if ( !pause )
+		{
+			Player::Movement::update( delta, gfx.window.input, player );
 
-		map.root->update_transforms();
-		player.node->update_transforms();
+			map.root->update_transforms();
+			player.node->update_transforms();
 
-		collisions.add( *map.root );
-		collisions.add( *player.node );
-		collisions.update();
+			collisions.add( *map.root );
+			collisions.add( *player.node );
+			collisions.update();
 
-		player.node->update_transforms();
+			player.node->update_transforms();
+		}
+
+		/// Victory conditions are that all blocks in the map are marked
+		std::vector<gfx::Node*> blocks;
+
+		for ( auto& entity : *map.entities )
+		{
+			if ( entity.node->flags & Flag::BLOCK )
+			{
+				blocks.emplace_back( &*entity.node );
+			}
+		};
+		
+		bool win = std::all_of( std::begin( blocks ), std::end( blocks ), []( gfx::Node* block ) {
+			return block->flags & Flag::MARKED;
+		} );
+
 
 		// Draw gui between NewFrame and update
 		ImGui::NewFrame();
+
+		if ( win )
+		{
+			pause = true;
+
+			ImGui::SetNextWindowBgAlpha( 0.75f );
+			ImGuiWindowFlags flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDecoration |
+				ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing |
+				ImGuiWindowFlags_NoNav | ImGuiWindowFlags_NoMove;
+			auto& io = ImGui::GetIO();
+			float padding = Tile::tile_size;
+			float height = io.DisplaySize.y / 3 - padding * 2.0f;
+			float width = io.DisplaySize.x - padding * 2.0f;
+			auto pos = ImVec2( padding, io.DisplaySize.y - height - padding );
+			auto size = ImVec2( width, height );
+			ImGui::SetNextWindowSize( size );
+			ImGui::SetNextWindowPos( pos );
+			ImGui::Begin( "Message", nullptr, flags );
+			ImGui::Text( "You won!" );
+			ImGui::End();
+		}
+
 		editor.draw( tileset, *model );
 		editor.draw( map );
 		gfx.gui.update( delta );

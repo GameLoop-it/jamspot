@@ -21,6 +21,8 @@ class Game
 	void run();
 
   private:
+	bool pause = false;
+
 	/// With this we make fireworks
 	gfx::Graphics gfx;
 
