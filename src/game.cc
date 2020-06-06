@@ -27,7 +27,8 @@ VkViewport create_viewport( VkExtent2D extent )
 
 
 Game::Game()
-: gfx { VkExtent2D { 320 * 2, 240 * 2 }, true }
+: config { "res/data/config.json" }
+, gfx { VkExtent2D { 320 * config.scale, 240 * config.scale }, true }
 , model { gfx.models.push() }
 , tileset { Tileset::from_json( "res/data/tileset.json", *model ) }
 , player { "res/data/player.json", tileset, *model }
@@ -55,7 +56,7 @@ void Game::run()
 			editor.update( gfx, map, tileset, *model );
 		}
 
-		if ( !pause )
+		if ( !config.pause )
 		{
 			Player::Movement::update( delta, gfx.window.input, player );
 
@@ -90,7 +91,7 @@ void Game::run()
 
 		if ( win )
 		{
-			pause = true;
+			config.pause = true;
 
 			ImGui::SetNextWindowBgAlpha( 0.75f );
 			ImGuiWindowFlags flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDecoration |

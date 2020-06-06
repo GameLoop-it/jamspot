@@ -6,6 +6,7 @@
 #include "spot/jam/tileset.h"
 #include "spot/jam/map.h"
 #include "spot/jam/editor/editor.h"
+#include "spot/jam/config.h"
 
 
 namespace spot::jam
@@ -16,12 +17,13 @@ class Game
 {
   public:
 	Game();
+
 	~Game();
 
 	void run();
 
   private:
-	bool pause = false;
+	Config config;
 
 	/// With this we make fireworks
 	gfx::Graphics gfx;
