@@ -72,6 +72,11 @@ void Game::run()
 		gfx.window.update();
 		auto delta = gfx.glfw.get_delta();
 
+		if ( gfx.window.input.key.down.r )
+		{
+			config.load_map( map.id, *this );
+		}
+
 		// Do not propagate input when using gui
 		if ( !ImGui::IsAnyWindowHovered() )
 		{
@@ -143,7 +148,7 @@ void Game::run()
 			}
 			ImGui::End();
 
-			if ( gfx.window.input.key.enter )
+			if ( gfx.window.input.key.down.enter )
 			{
 				config.pause = false;
 

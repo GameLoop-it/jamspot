@@ -20,10 +20,10 @@ void Player::Movement::update( const float delta, const gfx::Input& input, Entit
 {
 	math::Vec2 move;
 
-	move.y += input.key.w;
-	move.x -= input.key.a;
-	move.y -= input.key.s;
-	move.x += input.key.d;
+	move.y += input.key.value.w;
+	move.x -= input.key.value.a;
+	move.y -= input.key.value.s;
+	move.x += input.key.value.d;
 
 	if ( move != math::Vec2::Zero )
 	{
