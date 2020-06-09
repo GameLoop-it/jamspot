@@ -154,6 +154,7 @@ void Game::run()
 			if ( gfx.window.input.key.down.enter )
 			{
 				config.pause = false;
+				config.set_map( 0 );
 
 				if ( map.id < map_count - 1 )
 				{

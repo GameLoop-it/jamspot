@@ -18,6 +18,7 @@ struct Config
 
 	/// @brief Load new config values in the game
 	void load_map( uint32_t map, Game& game );
+	void set_map( uint32_t m ) { map = m; }
 	uint32_t get_map() const { return map; }
 
 	/// @brief Sets the scale of the window
