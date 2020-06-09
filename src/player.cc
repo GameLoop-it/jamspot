@@ -13,7 +13,7 @@ namespace spot::jam
 {
 
 
-float Player::Movement::speed = 32.0f;
+float Player::Movement::speed = 48.0f;
 
 
 void Player::Movement::update( const float delta, const gfx::Input& input, Entity& player )

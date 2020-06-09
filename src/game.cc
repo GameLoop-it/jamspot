@@ -60,6 +60,9 @@ Game::Game()
 	player.node->name = "player";
 	player.node->flags |= Flag::PLAYER;
 	player.node->bounds->dynamic = true;
+	player.node->bounds->shape = math::Rect::Unit * 10.0f;
+	player.node->bounds->shape.a.y -= 3.0f;
+	player.node->bounds->shape.b.y -= 3.0f;
 	gfx.camera.set_orthographic( create_viewport( VkExtent2D { 320, 240 } ) );
 }
 
